@@ -10,6 +10,7 @@
 import UIKit
 import Foundation
 
+//MARK: SycamoreDelegate protocol definition
 protocol SycamoreDelegate{
     func sycamoreDataReceived(dataRequested:  String)
     func tokenReceived()
@@ -17,25 +18,13 @@ protocol SycamoreDelegate{
 
 class Sycamore : NSObject{
     
-    var sycamoreData: [String:AnyObject]
 
-    override init() {
-        //initialize sycamoreData as an empty dictionary
-        sycamoreData = Dictionary()
-        
-        //call NSObject's initializer
-        super.init()
-
-        //check user defaults and load the authentication token if it is available
-        self.pullAuthenticationTokenFromUserDefaults()
-        
-    }
-
+    //MARK: class properties
     var delegate: SycamoreDelegate?
-
-    //user credentials
+    var sycamoreData: [String:AnyObject]
     private var authentication_token :String?
     
+    //MARK: derrived properties
     var loggedIn : Bool{
         switch self.authentication_token{
         case nil:
@@ -44,7 +33,22 @@ class Sycamore : NSObject{
             return true
         }
     }
+
+    //MARK: initializer
+    override init() {
+        //initialize sycamoreData as an empty dictionary
+        sycamoreData = [String : AnyObject]()
+        
+        //call NSObject's initializer
+        super.init()
+
+        //check user defaults and load the authentication token if it is available
+        self.pullAuthenticationTokenFromUserDefaults()
+        
+    }
     
+    
+    //MARK: Sycamore REST API requests
     func getStudents(){
         if let info = self.sycamoreData["Me"] as? [String:AnyObject]{
             if let familyID = info["FamilyID"] as? String{
@@ -52,7 +56,6 @@ class Sycamore : NSObject{
             }
         }
     }
-    
     func getMe(){
         self.getRequest("Me")
     }
@@ -66,7 +69,7 @@ class Sycamore : NSObject{
     ///This function submits a get request to Sycamore's API URL using the API path items listed at http://api.sycamoresupport.com/introduction-to-the-api
     ///
     ///:params: none
-    func getRequest(getInfo: String){
+    private func getRequest(getInfo: String){
         
         let requestURL = NSURL(string: API_URL + getInfo)
         
@@ -97,7 +100,7 @@ class Sycamore : NSObject{
         }
     }
     
-    func dataReceived(data: AnyObject?, dataRequested: String){
+    private func dataReceived(data: AnyObject?, dataRequested: String){
         
         self.sycamoreData[dataRequested] = data
         
@@ -130,7 +133,7 @@ class Sycamore : NSObject{
     ///This is called when the token is received from Sycamore.  It saves the received token to the instance and to user defaults
     ///
     ///:param: token this is the token that is sent from the website
-    func receive_token(notifaction: NSNotification){
+    private func receive_token(notifaction: NSNotification){
 
         if let userInfo = notifaction.userInfo as? Dictionary<String, String>{
             self.authentication_token = userInfo["access_token"]
@@ -148,8 +151,7 @@ class Sycamore : NSObject{
     /******************************************************/
     //MARK:  User Defaults functions
     /******************************************************/
-    //TODO: Make private again
-    func pullAuthenticationTokenFromUserDefaults() -> String?{
+    private func pullAuthenticationTokenFromUserDefaults() -> String?{
         let defaults = NSUserDefaults.standardUserDefaults()
         
         self.authentication_token = defaults.objectForKey("authentication_token") as String? ?? nil
@@ -163,7 +165,7 @@ class Sycamore : NSObject{
         defaults.removeObjectForKey("authentication_token")
         
         //clear the data
-        self.sycamoreData = Dictionary()
+        self.sycamoreData.removeAll(keepCapacity: true)
     }
     
     private  func putAuthenticationTokenIntoUserDefaults(token: String?){
