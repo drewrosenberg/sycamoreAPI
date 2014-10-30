@@ -21,9 +21,9 @@ class studentTableViewController: UITableViewController, SycamoreDelegate {
         self.sycamoreConnection.delegate = self
 
         //TODO: Remove or move to SycamoreAPI.swift
-        self.sycamoreConnection.pullAuthenticationTokenFromUserDefaults()
+//        self.sycamoreConnection.pullAuthenticationTokenFromUserDefaults()
         
-        if sycamoreConnection.authentication_token != nil{
+        if sycamoreConnection.loggedIn{
             self.tokenReceived()
         }
     }

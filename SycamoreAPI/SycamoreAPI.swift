@@ -17,6 +17,8 @@ protocol SycamoreDelegate{
 
 class Sycamore : NSObject{
     
+    var sycamoreData: [String:AnyObject]
+
     override init() {
         //initialize sycamoreData as an empty dictionary
         sycamoreData = Dictionary()
@@ -30,11 +32,18 @@ class Sycamore : NSObject{
     }
 
     var delegate: SycamoreDelegate?
-    var sycamoreData: [String:AnyObject]
 
     //user credentials
-    var authentication_token :String?
+    private var authentication_token :String?
     
+    var loggedIn : Bool{
+        switch self.authentication_token{
+        case nil:
+            return false
+        default: //authentication token known
+            return true
+        }
+    }
     
     func getStudents(){
         if let info = self.sycamoreData["Me"] as? [String:AnyObject]{
