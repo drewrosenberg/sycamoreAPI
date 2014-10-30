@@ -15,6 +15,8 @@ class studentTableViewController: UITableViewController, SycamoreDelegate {
     
     let sycamoreConnection = Sycamore()
     
+    var students = [[String : AnyObject]]()
+    
     //MARK: Initialization
     override func viewDidLoad() {
         
@@ -44,42 +46,40 @@ class studentTableViewController: UITableViewController, SycamoreDelegate {
     
     //MARK: TableView datasource
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-            return self.sycamoreConnection.sycamoreData["Students"]?.count ?? 0
+            return self.students.count
     }
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
 
         //create the student cell using the tableview prototype
-        let thisCell = self.tableView.dequeueReusableCellWithIdentifier("Student") as UITableViewCell?
-        
-        //get the list of students as an array from the API
-        if let studentList = sycamoreConnection.sycamoreData["Students"] as? [AnyObject]{
+        let thisCell = self.tableView.dequeueReusableCellWithIdentifier("Student") as UITableViewCell
 
-            //pull this individual student from the array
-            if let thisStudent = studentList[indexPath.row] as? [String: AnyObject]{
-                
-                //change the cell's label to the Student's first name
-                thisCell?.textLabel?.text = thisStudent["FirstName"] as? String ?? ""
-            }
-        }
-        return thisCell!
+        thisCell.textLabel?.text = self.students[indexPath.row]["FirstName"] as? String ?? ""
+        
+        return thisCell
     }
     
     //MARK: SycamoreDelegate
-    func sycamoreDataReceived(dataReceived:  String) {
-        
-        //printing stuff to the console for debug purposes
-        println("\n\n\n\(dataReceived) received!!\n\n")
-        println("\(self.sycamoreConnection.sycamoreData.count)")
+    func sycamoreDataReceived(data: AnyObject?, dataTitle: String) {
 
-        switch dataReceived{
+        //printing stuff to the console for debug purposes
+        println("\n\n\n\(dataTitle) received!!\n\n")
+
+        switch dataTitle{
         
         //if "Me" was received, then get student info
         case "Me":
-            self.sycamoreConnection.getStudents()
+            if let familyID = data?["FamilyID"] as? String{
+                self.sycamoreConnection.getStudents(familyID)
+            }else{
+                println("No family ID received in Me request!!")
+            }
             
         //If "Students" were received, then load the tableView
         case "Students":
+            if let receivedData = data as? [[String: AnyObject]]{
+                self.students = receivedData
+            }
             self.tableView.reloadData()
 
         //anything else is not expected because it was not requested
