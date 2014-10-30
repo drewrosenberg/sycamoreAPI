@@ -8,11 +8,17 @@
 
 /* Begin PBXBuildFile section */
 		3A0F24EF19F620CE008C684C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A0F24EE19F620CE008C684C /* AppDelegate.swift */; };
-		3A0F24F119F620CE008C684C /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A0F24F019F620CE008C684C /* ViewController.swift */; };
 		3A0F24F419F620CE008C684C /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3A0F24F219F620CE008C684C /* Main.storyboard */; };
 		3A0F24F619F620CE008C684C /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3A0F24F519F620CE008C684C /* Images.xcassets */; };
 		3A0F24F919F620CE008C684C /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3A0F24F719F620CE008C684C /* LaunchScreen.xib */; };
 		3A0F250519F620CF008C684C /* SycamoreAPITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A0F250419F620CF008C684C /* SycamoreAPITests.swift */; };
+		3A0F250F19F62146008C684C /* SycamoreAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A0F250E19F62145008C684C /* SycamoreAPI.swift */; };
+		3A0F251419F625B7008C684C /* SycamoreConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A0F251319F625B7008C684C /* SycamoreConstants.swift */; };
+		3AD1D0D519F767C400E6AA88 /* Credentials.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AD1D0D419F767C400E6AA88 /* Credentials.swift */; };
+		3AD1D0D719F895B600E6AA88 /* SycamoreAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A0F250E19F62145008C684C /* SycamoreAPI.swift */; };
+		3AD1D0D819F895B900E6AA88 /* Credentials.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AD1D0D419F767C400E6AA88 /* Credentials.swift */; };
+		3AD1D0D919F895BC00E6AA88 /* SycamoreConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A0F251319F625B7008C684C /* SycamoreConstants.swift */; };
+		3AD1D0F819FB55A200E6AA88 /* studentTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AD1D0F719FB55A200E6AA88 /* studentTableViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -29,13 +35,16 @@
 		3A0F24E919F620CE008C684C /* SycamoreAPI.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SycamoreAPI.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3A0F24ED19F620CE008C684C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		3A0F24EE19F620CE008C684C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		3A0F24F019F620CE008C684C /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		3A0F24F319F620CE008C684C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		3A0F24F519F620CE008C684C /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		3A0F24F819F620CE008C684C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
 		3A0F24FE19F620CF008C684C /* SycamoreAPITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SycamoreAPITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		3A0F250319F620CF008C684C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		3A0F250419F620CF008C684C /* SycamoreAPITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SycamoreAPITests.swift; sourceTree = "<group>"; };
+		3A0F250E19F62145008C684C /* SycamoreAPI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SycamoreAPI.swift; sourceTree = "<group>"; };
+		3A0F251319F625B7008C684C /* SycamoreConstants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SycamoreConstants.swift; sourceTree = "<group>"; };
+		3AD1D0D419F767C400E6AA88 /* Credentials.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Credentials.swift; sourceTree = "<group>"; };
+		3AD1D0F719FB55A200E6AA88 /* studentTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = studentTableViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -77,11 +86,10 @@
 		3A0F24EB19F620CE008C684C /* SycamoreAPI */ = {
 			isa = PBXGroup;
 			children = (
-				3A0F24EE19F620CE008C684C /* AppDelegate.swift */,
-				3A0F24F019F620CE008C684C /* ViewController.swift */,
 				3A0F24F219F620CE008C684C /* Main.storyboard */,
-				3A0F24F519F620CE008C684C /* Images.xcassets */,
-				3A0F24F719F620CE008C684C /* LaunchScreen.xib */,
+				3A0F251219F623D0008C684C /* Models */,
+				3AD1D0DB19F898EF00E6AA88 /* Views */,
+				3AD1D0DA19F898D500E6AA88 /* Controllers */,
 				3A0F24EC19F620CE008C684C /* Supporting Files */,
 			);
 			path = SycamoreAPI;
@@ -90,6 +98,7 @@
 		3A0F24EC19F620CE008C684C /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				3A0F24EE19F620CE008C684C /* AppDelegate.swift */,
 				3A0F24ED19F620CE008C684C /* Info.plist */,
 			);
 			name = "Supporting Files";
@@ -110,6 +119,33 @@
 				3A0F250319F620CF008C684C /* Info.plist */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		3A0F251219F623D0008C684C /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				3A0F250E19F62145008C684C /* SycamoreAPI.swift */,
+				3AD1D0D419F767C400E6AA88 /* Credentials.swift */,
+				3A0F251319F625B7008C684C /* SycamoreConstants.swift */,
+			);
+			name = Models;
+			sourceTree = "<group>";
+		};
+		3AD1D0DA19F898D500E6AA88 /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				3AD1D0F719FB55A200E6AA88 /* studentTableViewController.swift */,
+			);
+			name = Controllers;
+			sourceTree = "<group>";
+		};
+		3AD1D0DB19F898EF00E6AA88 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				3A0F24F719F620CE008C684C /* LaunchScreen.xib */,
+				3A0F24F519F620CE008C684C /* Images.xcassets */,
+			);
+			name = Views;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -161,6 +197,7 @@
 				TargetAttributes = {
 					3A0F24E819F620CE008C684C = {
 						CreatedOnToolsVersion = 6.1;
+						DevelopmentTeam = Z77KYMCTUP;
 					};
 					3A0F24FD19F620CF008C684C = {
 						CreatedOnToolsVersion = 6.1;
@@ -212,8 +249,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3A0F24F119F620CE008C684C /* ViewController.swift in Sources */,
 				3A0F24EF19F620CE008C684C /* AppDelegate.swift in Sources */,
+				3AD1D0F819FB55A200E6AA88 /* studentTableViewController.swift in Sources */,
+				3AD1D0D519F767C400E6AA88 /* Credentials.swift in Sources */,
+				3A0F251419F625B7008C684C /* SycamoreConstants.swift in Sources */,
+				3A0F250F19F62146008C684C /* SycamoreAPI.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -221,7 +261,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3AD1D0D819F895B900E6AA88 /* Credentials.swift in Sources */,
 				3A0F250519F620CF008C684C /* SycamoreAPITests.swift in Sources */,
+				3AD1D0D919F895BC00E6AA88 /* SycamoreConstants.swift in Sources */,
+				3AD1D0D719F895B600E6AA88 /* SycamoreAPI.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -338,6 +381,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				INFOPLIST_FILE = SycamoreAPI/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -348,6 +392,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				INFOPLIST_FILE = SycamoreAPI/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -407,6 +452,7 @@
 				3A0F250A19F620CF008C684C /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		3A0F250B19F620CF008C684C /* Build configuration list for PBXNativeTarget "SycamoreAPITests" */ = {
 			isa = XCConfigurationList;
@@ -415,6 +461,7 @@
 				3A0F250D19F620CF008C684C /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

@@ -11,6 +11,8 @@ import XCTest
 
 class SycamoreAPITests: XCTestCase {
     
+    let sycamoreConnection = Sycamore()
+    
     override func setUp() {
         super.setUp()
         // Put setup code here. This method is called before the invocation of each test method in the class.
@@ -26,6 +28,7 @@ class SycamoreAPITests: XCTestCase {
         XCTAssert(true, "Pass")
     }
     
+    
     func testPerformanceExample() {
         // This is an example of a performance test case.
         self.measureBlock() {
@@ -34,3 +37,28 @@ class SycamoreAPITests: XCTestCase {
     }
     
 }
+
+/*
+class SycamoreTokenTests: XCTestCase {
+    let realToken = "2964b59302860ae018608aadcece3a49f1f4d6e4"
+    let fakeToken = "2964b59302860ae018608aadcece3a49f1f4d6e"
+    
+    func testGoodTokenReceived(){
+        let fake_token = "123456"
+        self.sycamoreConnection.receive_token(fake_token)
+        XCTAssert(self.sycamoreConnection.authentication_token == fake_token, "Token not received properly")
+    }
+    
+    func testNilTokenReceived(){
+        let fake_token : String? = nil
+        Sycamore.receive_token(fake_token)
+        XCTAssert(Sycamore.authentication_token == nil, "empty token not handled properly")
+    }
+    
+    func testLocalToken(){
+        Sycamore.request_token()
+        XCTAssert(Sycamore.authentication_token != nil, "no token has been saved to user defaults")
+    }
+    
+}
+*/

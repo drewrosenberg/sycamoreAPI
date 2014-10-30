@@ -4,6 +4,11 @@
 <dict>
 	<key>SchemeUserState</key>
 	<dict>
+		<key>SycamoreAPI Framework.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>1</integer>
+		</dict>
 		<key>SycamoreAPI.xcscheme</key>
 		<dict>
 			<key>orderHint</key>
@@ -18,6 +23,16 @@
 			<true/>
 		</dict>
 		<key>3A0F24FD19F620CF008C684C</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>3AD1D0DF19F89B9A00E6AA88</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>3AD1D0E919F89B9A00E6AA88</key>
 		<dict>
 			<key>primary</key>
 			<true/>

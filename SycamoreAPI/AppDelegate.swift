@@ -41,6 +41,35 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
     }
 
+    func application(application: UIApplication, openURL url: NSURL, sourceApplication: String?, annotation: AnyObject?) -> Bool {
+        
+        //get all components from the URL
+        println("\(url)")
+        
+        let components = NSURLComponents(URL: url, resolvingAgainstBaseURL: true)
+        
+        println("\(components?.fragment)")
+        
+        let returnedParameters = components?.fragment?.componentsSeparatedByString("&")
 
+        for keyValuePair in returnedParameters!{
+            let pairComponents = keyValuePair.componentsSeparatedByString("=")
+            let key = pairComponents[0]
+            let value = pairComponents[1]
+            
+            if key == "access_token" {
+                NSNotificationCenter.defaultCenter().postNotificationName("token_received", object: nil, userInfo: [key : value])
+            }
+        }
+        
+        //filter out all query items where the name is code from the components array, then return the first one
+//        if let tokenItem = components?.queryItems?.filter({$0.name == "access_token"})[0] as? NSURLQueryItem{
+//
+            //token received
+//            Sycamore.receive_token(tokenItem.value)
+//        }
+        return true
+    }
+    
 }
 
