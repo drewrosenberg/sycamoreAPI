@@ -29,6 +29,7 @@ class studentTableViewController: UITableViewController, SycamoreDelegate {
             self.tokenReceived()
         }
         
+        //add pull down to refresh
         self.refreshControl = UIRefreshControl()
         self.refreshControl?.addTarget(self, action: "refresh", forControlEvents: UIControlEvents.ValueChanged)
     }

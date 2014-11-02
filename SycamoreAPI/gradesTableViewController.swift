@@ -27,6 +27,11 @@ class gradesTableViewController: UITableViewController, SycamoreDelegate {
         if (sycamoreConnection?.loggedIn != nil){
             self.tokenReceived()
         }
+        
+        //add pull down to refresh
+        self.refreshControl = UIRefreshControl()
+        self.refreshControl?.addTarget(self, action: "refresh", forControlEvents: UIControlEvents.ValueChanged)
+
     }
 
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -72,10 +77,16 @@ class gradesTableViewController: UITableViewController, SycamoreDelegate {
     func tokenReceived(){
         self.activityIndicator.startAnimating()
         
+        self.refresh()
+    }
+    
+    func refresh(){
         //Since token was received, get user's info
         if let studentID = self.student["ID"] as? String{
             self.sycamoreConnection?.getGrades(studentID, quarter: 1)
         }
+        
+        self.refreshControl?.endRefreshing()        
     }
 
 }
