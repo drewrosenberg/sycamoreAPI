@@ -32,10 +32,8 @@ class gradesTableViewController: sycamoreTableViewController, SycamoreDelegate {
 
 
     //MARK: Custom SycamoreDelegate items
+    
     override func sycamoreDataReceived(data: AnyObject?, dataTitle: String) {
-        
-        //printing stuff to the console for debug purposes
-        println("\n\n\n\(dataTitle) received!!\n\n")
         
         switch dataTitle{
             
@@ -47,6 +45,8 @@ class gradesTableViewController: sycamoreTableViewController, SycamoreDelegate {
         default:
             println("WARNING:  received something that wasn't expected!!")
         }
+        
+        super.sycamoreDataReceived(data, dataTitle: dataTitle)
     }
     
     override func refresh(){
@@ -55,6 +55,6 @@ class gradesTableViewController: sycamoreTableViewController, SycamoreDelegate {
             self.sycamoreConnection?.getGrades(studentID, quarter: 1)
         }
         
-        self.refreshControl?.endRefreshing()        
+        super.refresh()
     }
 }

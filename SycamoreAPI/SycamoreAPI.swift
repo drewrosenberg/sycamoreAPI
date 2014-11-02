@@ -21,10 +21,9 @@ class Sycamore : NSObject{
     //MARK: properties
     var delegate: SycamoreDelegate?
     var loggedIn : Bool{
-        switch self.authentication_token{
-        case nil:
+        if self.authentication_token == nil{
             return false
-        default: //authentication token known
+        }else{
             return true
         }
     }

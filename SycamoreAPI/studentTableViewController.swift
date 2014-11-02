@@ -66,9 +66,6 @@ class studentTableViewController: sycamoreTableViewController, SycamoreDelegate 
     //MARK: SycamoreDelegate
     override func sycamoreDataReceived(data: AnyObject?, dataTitle: String) {
 
-        //printing stuff to the console for debug purposes
-        println("\n\n\n\(dataTitle) received!!\n\n")
-
         switch dataTitle{
         
         //if "Me" was received, then get student info
@@ -89,7 +86,10 @@ class studentTableViewController: sycamoreTableViewController, SycamoreDelegate 
         default:
             println("WARNING:  received something that wasn't expected!!")
         }
+        
+        super.sycamoreDataReceived(data, dataTitle: dataTitle)
     }
+    
     override func tokenReceived(){
         //change label
         self.loginButton.title = "Log Out"
@@ -100,7 +100,7 @@ class studentTableViewController: sycamoreTableViewController, SycamoreDelegate 
         //Since token was received, get user's info
         self.sycamoreConnection?.getMe()
         
-        self.refreshControl?.endRefreshing()
+        super.refresh()
         
     }
 

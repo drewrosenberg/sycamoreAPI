@@ -20,12 +20,15 @@ class sycamoreTableViewController: UITableViewController, SycamoreDelegate {
     //this variable is populated using the SycamoreAPI
     var tableItems = [[String : AnyObject]]()
     
+    //**** WARNING:  If these methods are overridden, then super must be called ****
+
+    //MARK: Initialization
     override func viewDidLoad() {
         //set sycamoreConnection's delegate
         self.sycamoreConnection?.delegate = self
         
         //if login credentials already exist, then move on to token received
-        if (sycamoreConnection?.loggedIn != nil){
+        if (sycamoreConnection?.loggedIn == true){
             self.tokenReceived()
         }
         
@@ -34,17 +37,18 @@ class sycamoreTableViewController: UITableViewController, SycamoreDelegate {
         self.refreshControl?.addTarget(self, action: "refresh", forControlEvents: UIControlEvents.ValueChanged)
         
     }
-    
     override func viewWillAppear(animated: Bool) {
         //set sycamoreConnection's delegate when the view comes back
         self.sycamoreConnection?.delegate = self
     }
 
-    
+    //MARK: TableViewController
+    //Number of rows in section is covered.  CellforRowAtIndexPath must be called by the inheriting cleass
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return self.tableItems.count
     }
     
+    //MARK: SycamoreDelegate Methods
     func tokenReceived(){
         self.activityIndicator.startAnimating()
         
@@ -52,26 +56,15 @@ class sycamoreTableViewController: UITableViewController, SycamoreDelegate {
     }
 
     
-    //MARK: Custom Items
-    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        
-        //change the identifier
-        let cell = self.tableView.dequeueReusableCellWithIdentifier("cellIdentifier") as? UITableViewCell
-        
-        //custom cell items go here
+    //MARK: Custom SycamoreDelegate Items
+    //NOTE:  These MUST be overridden.  Call super at the end of overriding the method
 
-        return cell!
-    }
-    
-    
     func sycamoreDataReceived(data: AnyObject?, dataTitle: String) {
-        //custom data received items go here
+        //printing stuff to the console for debug purposes
+        println("\n\n\n\(dataTitle) received!!\n\n")
     }
-    
     
     func refresh(){
-        //get info here
-
         //stop the refresh control
         self.refreshControl?.endRefreshing()
     }
