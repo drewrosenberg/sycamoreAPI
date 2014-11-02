@@ -53,20 +53,46 @@ class Sycamore : NSObject{
         //removed saved token
         defaults.removeObjectForKey("authentication_token")
     }
+    func receive_token(notifaction: NSNotification){
+        ///Receive Token
+        ///
+        ///This is called when the token is received from Sycamore.  It saves the received token to the instance and to user defaults
+        ///
+        ///:param: token this is the token that is sent from the website
+        
+        
+        if let userInfo = notifaction.userInfo as? [String:String]{
+            self.authentication_token = userInfo["access_token"]
+            
+            //save the token to user defaults for later
+            self.putAuthenticationTokenIntoUserDefaults(self.authentication_token)
+            
+            self.delegate?.tokenReceived()
+        }
+        
+    }
     
     //MARK: Sycamore REST API requests
     func getStudents(familyID: String){
         self.getRequest("Family/\(familyID)/Students")
+    }
+    func getGrades(studentID: String, quarter: Int = 0){
+        switch quarter{
+        case 0:
+            self.getRequest("Student/\(studentID)/Grades")
+        default:
+            self.getRequest("Student/\(studentID)/Grades?quarter=\(quarter)")
+        }
+
+    
     }
     func getMe(){
         self.getRequest("Me")
     }
     
     
-    /***************** private *****************/
-    
     //MARK:  Web communications
-    private func getRequest(getInfo: String){
+    func getRequest(getInfo: String){
         ///Get Request
         ///
         ///This function submits a get request to Sycamore's API URL using the API path items listed at http://api.sycamoresupport.com/introduction-to-the-api
@@ -74,6 +100,8 @@ class Sycamore : NSObject{
         ///:params: none
         
         let requestURL = NSURL(string: API_URL + getInfo)
+        
+        println("Request: \(requestURL)")
         
         //generate request with token
         let request = NSMutableURLRequest(URL: requestURL!)
@@ -85,14 +113,22 @@ class Sycamore : NSObject{
             
             session.dataTaskWithRequest(request, {(data, response, error) in
                 var error: NSError?
+
                 
-                if let returnData: AnyObject = NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions.MutableContainers, error: &error){
+                if error != nil{
+                    println("ERROR: \(error)")
+                }
+                
+                //TODO:  need to pass back nil if nothing comes back
+                else{
+                    let returnData:AnyObject?  = NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions.MutableContainers, error: &error)
                     
                     println("\n\nJSon:\(returnData)")
                     
                     if let requestedItemName = requestURL?.lastPathComponent as String!{
                         self.dataReceived(returnData, dataRequested: requestedItemName)
                     }
+                    
                 }
 
                 
@@ -102,38 +138,26 @@ class Sycamore : NSObject{
         }
     }
     
-    private func dataReceived(data: AnyObject?, dataRequested: String){
-        dispatch_async(dispatch_get_main_queue(), {self.delegate!.sycamoreDataReceived(data, dataTitle: dataRequested)})
+    func dataReceived(data: AnyObject?, dataRequested: String){
+        dispatch_async(dispatch_get_main_queue(), {
+            if let thisDelegate = self.delegate{
+                thisDelegate.sycamoreDataReceived(data, dataTitle: dataRequested)
+            }            
+        })
+            
     }
     
     //MARK:  Token requests
-    private func receive_token(notifaction: NSNotification){
-        ///Receive Token
-        ///
-        ///This is called when the token is received from Sycamore.  It saves the received token to the instance and to user defaults
-        ///
-        ///:param: token this is the token that is sent from the website
-
-        if let userInfo = notifaction.userInfo as? Dictionary<String, String>{
-            self.authentication_token = userInfo["access_token"]
-
-            //save the token to user defaults for later
-            self.putAuthenticationTokenIntoUserDefaults(self.authentication_token)
-            
-            self.delegate?.tokenReceived()
-        }
-        
-    }
-    private var authentication_token :String?
+    var authentication_token :String?
     
     //MARK:  User Defaults functions
-    private func pullAuthenticationTokenFromUserDefaults() -> String?{
+    func pullAuthenticationTokenFromUserDefaults() -> String?{
         let defaults = NSUserDefaults.standardUserDefaults()
         
         self.authentication_token = defaults.objectForKey("authentication_token") as String? ?? nil
         return self.authentication_token
     }
-    private  func putAuthenticationTokenIntoUserDefaults(token: String?){
+    func putAuthenticationTokenIntoUserDefaults(token: String?){
         let defaults = NSUserDefaults.standardUserDefaults()
         defaults.setObject(self.authentication_token, forKey: "authentication_token")
         defaults.synchronize()

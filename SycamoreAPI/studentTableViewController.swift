@@ -12,6 +12,7 @@ import Foundation
 class studentTableViewController: UITableViewController, SycamoreDelegate {
     
     @IBOutlet var loginButton: UIBarButtonItem!
+    @IBOutlet var activityIndicator: UIActivityIndicatorView!
     
     let sycamoreConnection = Sycamore()
     
@@ -40,6 +41,7 @@ class studentTableViewController: UITableViewController, SycamoreDelegate {
             //tell sycamore API to log out, change the button title, and reload the tableView
             sycamoreConnection.logout()
             self.loginButton.title = "Log In"
+            self.students.removeAll(keepCapacity: true)
             self.tableView.reloadData()
         }
     }
@@ -57,6 +59,25 @@ class studentTableViewController: UITableViewController, SycamoreDelegate {
         thisCell.textLabel?.text = self.students[indexPath.row]["FirstName"] as? String ?? ""
         
         return thisCell
+    }
+    
+    //MARK: Segue
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        
+        if segue.identifier == "showGrades"{
+            if let gtvc = segue.destinationViewController as? gradesTableViewController{
+                
+                gtvc.sycamoreConnection = self.sycamoreConnection
+                
+                if let cell = sender as? UITableViewCell{
+                    let index = self.tableView.indexPathForCell(cell)?.row
+                    gtvc.student = self.students[ index! ]
+                    gtvc.title = (gtvc.student["FirstName"] as? String ?? "") + " " + (gtvc.student["LastName"] as? String ?? "")
+                }
+                
+            }
+            
+        }
     }
     
     //MARK: SycamoreDelegate
@@ -77,9 +98,8 @@ class studentTableViewController: UITableViewController, SycamoreDelegate {
             
         //If "Students" were received, then load the tableView
         case "Students":
-            if let receivedData = data as? [[String: AnyObject]]{
-                self.students = receivedData
-            }
+            self.students = data as? [[String:AnyObject]] ?? [[String:AnyObject]]()
+            self.activityIndicator.stopAnimating()
             self.tableView.reloadData()
 
         //anything else is not expected because it was not requested
@@ -92,6 +112,7 @@ class studentTableViewController: UITableViewController, SycamoreDelegate {
         
         //change label
         self.loginButton.title = "Log Out"
+        self.activityIndicator.startAnimating()
 
         //Since token was received, get user's info
         self.sycamoreConnection.getMe()

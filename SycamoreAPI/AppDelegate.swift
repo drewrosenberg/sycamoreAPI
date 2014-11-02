@@ -43,15 +43,19 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(application: UIApplication, openURL url: NSURL, sourceApplication: String?, annotation: AnyObject?) -> Bool {
         
-        //get all components from the URL
+        //print the url to the console for debug purposes
         println("\(url)")
         
+        //get all components from the URL
         let components = NSURLComponents(URL: url, resolvingAgainstBaseURL: true)
         
+        //fragment is everything in the URL after the hashtag
         println("\(components?.fragment)")
         
+        //split the fragment into all of the returned parameters
         let returnedParameters = components?.fragment?.componentsSeparatedByString("&")
 
+        //find the access token in the returned URL and pass it back to the application through the notificatin center
         for keyValuePair in returnedParameters!{
             let pairComponents = keyValuePair.componentsSeparatedByString("=")
             let key = pairComponents[0]
@@ -62,12 +66,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             }
         }
         
-        //filter out all query items where the name is code from the components array, then return the first one
-//        if let tokenItem = components?.queryItems?.filter({$0.name == "access_token"})[0] as? NSURLQueryItem{
-//
-            //token received
-//            Sycamore.receive_token(tokenItem.value)
-//        }
         return true
     }
     
