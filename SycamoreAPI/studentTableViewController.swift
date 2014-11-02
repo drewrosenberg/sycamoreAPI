@@ -28,6 +28,14 @@ class studentTableViewController: UITableViewController, SycamoreDelegate {
         if sycamoreConnection.loggedIn{
             self.tokenReceived()
         }
+        
+        self.refreshControl = UIRefreshControl()
+        self.refreshControl?.addTarget(self, action: "refresh", forControlEvents: UIControlEvents.ValueChanged)
+    }
+    
+    override func viewWillAppear(animated: Bool) {
+        //set sycamoreConnection's delegate when the view comes back
+        self.sycamoreConnection.delegate = self
     }
     
     //MARK: user actions
@@ -114,9 +122,15 @@ class studentTableViewController: UITableViewController, SycamoreDelegate {
         self.loginButton.title = "Log Out"
         self.activityIndicator.startAnimating()
 
+        self.refresh()
+    }
+    
+    func refresh(){
         //Since token was received, get user's info
         self.sycamoreConnection.getMe()
-
+        
+        self.refreshControl?.endRefreshing()
+        
     }
 
 }

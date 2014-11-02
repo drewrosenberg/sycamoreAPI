@@ -12,10 +12,13 @@ class gradesTableViewController: UITableViewController, SycamoreDelegate {
     
     @IBOutlet var activityIndicator: UIActivityIndicatorView!
     
+    //these variables are set at the Segue from the previous view Controller
     var student = [String : AnyObject]()
+    var sycamoreConnection : Sycamore? //the same connection is passed from viewController to viewController
+    
+    //this variable is populated using the SycamoreAPI
     var grades = [[String : AnyObject]]()
-    var sycamoreConnection : Sycamore?
-
+    
     override func viewDidLoad() {
         //set sycamoreConnection's delegate
         self.sycamoreConnection?.delegate = self
@@ -25,7 +28,6 @@ class gradesTableViewController: UITableViewController, SycamoreDelegate {
             self.tokenReceived()
         }
     }
-
 
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return self.grades.count

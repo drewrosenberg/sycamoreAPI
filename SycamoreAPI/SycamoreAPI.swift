@@ -48,10 +48,14 @@ class Sycamore : NSObject{
         
     }
     func logout(){
-        let defaults = NSUserDefaults.standardUserDefaults()
         
-        //removed saved token
+        //removed saved token from user defaults
+        let defaults = NSUserDefaults.standardUserDefaults()
         defaults.removeObjectForKey("authentication_token")
+        defaults.synchronize()
+
+        //clear token
+        self.authentication_token = nil
     }
     func receive_token(notifaction: NSNotification){
         ///Receive Token
