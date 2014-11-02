@@ -9,34 +9,14 @@
 import UIKit
 import Foundation
 
-class studentTableViewController: UITableViewController, SycamoreDelegate {
+class studentTableViewController: sycamoreTableViewController, SycamoreDelegate {
     
     @IBOutlet var loginButton: UIBarButtonItem!
-    @IBOutlet var activityIndicator: UIActivityIndicatorView!
-    
-    let sycamoreConnection = Sycamore()
-    
-    var students = [[String : AnyObject]]()
     
     //MARK: Initialization
     override func viewDidLoad() {
-        
-        //set sycamoreConnection's delegate
-        self.sycamoreConnection.delegate = self
-
-        //if login credentials already exist, then move on to token received
-        if sycamoreConnection.loggedIn{
-            self.tokenReceived()
-        }
-        
-        //add pull down to refresh
-        self.refreshControl = UIRefreshControl()
-        self.refreshControl?.addTarget(self, action: "refresh", forControlEvents: UIControlEvents.ValueChanged)
-    }
-    
-    override func viewWillAppear(animated: Bool) {
-        //set sycamoreConnection's delegate when the view comes back
-        self.sycamoreConnection.delegate = self
+        self.sycamoreConnection = Sycamore()
+        super.viewDidLoad()
     }
     
     //MARK: user actions
@@ -44,28 +24,22 @@ class studentTableViewController: UITableViewController, SycamoreDelegate {
         
         if loginButton.title == "Log In"{
             //tell sycamore to initiate the login process
-            sycamoreConnection.request_token()
+            self.sycamoreConnection?.request_token()
         
         }else{
             //tell sycamore API to log out, change the button title, and reload the tableView
-            sycamoreConnection.logout()
+            self.sycamoreConnection?.logout()
             self.loginButton.title = "Log In"
-            self.students.removeAll(keepCapacity: true)
+            self.tableItems.removeAll(keepCapacity: true)
             self.tableView.reloadData()
         }
     }
-    
-    //MARK: TableView datasource
-    override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-            return self.students.count
-    }
-    
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
 
         //create the student cell using the tableview prototype
         let thisCell = self.tableView.dequeueReusableCellWithIdentifier("Student") as UITableViewCell
 
-        thisCell.textLabel?.text = self.students[indexPath.row]["FirstName"] as? String ?? ""
+        thisCell.textLabel?.text = self.tableItems[indexPath.row]["FirstName"] as? String ?? ""
         
         return thisCell
     }
@@ -80,7 +54,7 @@ class studentTableViewController: UITableViewController, SycamoreDelegate {
                 
                 if let cell = sender as? UITableViewCell{
                     let index = self.tableView.indexPathForCell(cell)?.row
-                    gtvc.student = self.students[ index! ]
+                    gtvc.student = self.tableItems[ index! ]
                     gtvc.title = (gtvc.student["FirstName"] as? String ?? "") + " " + (gtvc.student["LastName"] as? String ?? "")
                 }
                 
@@ -90,7 +64,7 @@ class studentTableViewController: UITableViewController, SycamoreDelegate {
     }
     
     //MARK: SycamoreDelegate
-    func sycamoreDataReceived(data: AnyObject?, dataTitle: String) {
+    override func sycamoreDataReceived(data: AnyObject?, dataTitle: String) {
 
         //printing stuff to the console for debug purposes
         println("\n\n\n\(dataTitle) received!!\n\n")
@@ -100,14 +74,14 @@ class studentTableViewController: UITableViewController, SycamoreDelegate {
         //if "Me" was received, then get student info
         case "Me":
             if let familyID = data?["FamilyID"] as? String{
-                self.sycamoreConnection.getStudents(familyID)
+                self.sycamoreConnection?.getStudents(familyID)
             }else{
                 println("No family ID received in Me request!!")
             }
             
         //If "Students" were received, then load the tableView
         case "Students":
-            self.students = data as? [[String:AnyObject]] ?? [[String:AnyObject]]()
+            self.tableItems = data as? [[String:AnyObject]] ?? [[String:AnyObject]]()
             self.activityIndicator.stopAnimating()
             self.tableView.reloadData()
 
@@ -116,19 +90,15 @@ class studentTableViewController: UITableViewController, SycamoreDelegate {
             println("WARNING:  received something that wasn't expected!!")
         }
     }
-    
-    func tokenReceived(){
-        
+    override func tokenReceived(){
         //change label
         self.loginButton.title = "Log Out"
-        self.activityIndicator.startAnimating()
 
-        self.refresh()
+        super.tokenReceived()
     }
-    
-    func refresh(){
+    override func refresh(){
         //Since token was received, get user's info
-        self.sycamoreConnection.getMe()
+        self.sycamoreConnection?.getMe()
         
         self.refreshControl?.endRefreshing()
         

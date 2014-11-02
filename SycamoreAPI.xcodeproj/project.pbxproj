@@ -14,6 +14,7 @@
 		3A0F250519F620CF008C684C /* SycamoreAPITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A0F250419F620CF008C684C /* SycamoreAPITests.swift */; };
 		3A0F250F19F62146008C684C /* SycamoreAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A0F250E19F62145008C684C /* SycamoreAPI.swift */; };
 		3A0F251419F625B7008C684C /* SycamoreConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A0F251319F625B7008C684C /* SycamoreConstants.swift */; };
+		3A44FF0E1A06C2910095441E /* sycamoreTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A44FF0D1A06C2910095441E /* sycamoreTableViewController.swift */; };
 		3AD1D0D519F767C400E6AA88 /* Credentials.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AD1D0D419F767C400E6AA88 /* Credentials.swift */; };
 		3AD1D0D719F895B600E6AA88 /* SycamoreAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A0F250E19F62145008C684C /* SycamoreAPI.swift */; };
 		3AD1D0D819F895B900E6AA88 /* Credentials.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AD1D0D419F767C400E6AA88 /* Credentials.swift */; };
@@ -44,6 +45,7 @@
 		3A0F250419F620CF008C684C /* SycamoreAPITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SycamoreAPITests.swift; sourceTree = "<group>"; };
 		3A0F250E19F62145008C684C /* SycamoreAPI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SycamoreAPI.swift; sourceTree = "<group>"; };
 		3A0F251319F625B7008C684C /* SycamoreConstants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SycamoreConstants.swift; sourceTree = "<group>"; };
+		3A44FF0D1A06C2910095441E /* sycamoreTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = sycamoreTableViewController.swift; sourceTree = "<group>"; };
 		3AD1D0D419F767C400E6AA88 /* Credentials.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Credentials.swift; sourceTree = "<group>"; };
 		3AD1D0F719FB55A200E6AA88 /* studentTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = studentTableViewController.swift; sourceTree = "<group>"; };
 		3ADC07FC1A05D03C007E557B /* gradesTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = gradesTableViewController.swift; sourceTree = "<group>"; };
@@ -136,6 +138,7 @@
 		3AD1D0DA19F898D500E6AA88 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				3A44FF0D1A06C2910095441E /* sycamoreTableViewController.swift */,
 				3AD1D0F719FB55A200E6AA88 /* studentTableViewController.swift */,
 				3ADC07FC1A05D03C007E557B /* gradesTableViewController.swift */,
 			);
@@ -256,6 +259,7 @@
 				3AD1D0F819FB55A200E6AA88 /* studentTableViewController.swift in Sources */,
 				3AD1D0D519F767C400E6AA88 /* Credentials.swift in Sources */,
 				3A0F251419F625B7008C684C /* SycamoreConstants.swift in Sources */,
+				3A44FF0E1A06C2910095441E /* sycamoreTableViewController.swift in Sources */,
 				3A0F250F19F62146008C684C /* SycamoreAPI.swift in Sources */,
 				3ADC07FD1A05D03C007E557B /* gradesTableViewController.swift in Sources */,
 			);
