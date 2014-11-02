@@ -35,8 +35,3 @@ xcuserdata
 *.moved-aside
 DerivedData
 *.xcuserstate
-
-
-*.xcodeproj
-*.xcodeproj/*
-SycamoreAPI.xcodeproj/*
